@@ -1,14 +1,17 @@
-.tab_menu{
-	position: relative;
+.tab_container{
+	display: flex;
 }
 
-.tab_menu .list{
-	overflow: hidden;
-}
-
-.tab_menu .list li{
-	float: left;
+.tab_container div{
+	flex: 1;
+	background: grey;
+	width: 100px;
+	height: 100px;
 	margin-right: 10px;
+}
+
+.tab_container div button{
+	margin-left: auto;
 }
 
 .tab_menu .list li.is_on .btn{
