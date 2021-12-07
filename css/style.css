@@ -1,0 +1,33 @@
+.tab_menu{
+	position: relative;
+}
+
+.tab_menu .list{
+	overflow: hidden;
+}
+
+.tab_menu .list li{
+	float: left;
+	margin-right: 10px;
+}
+
+.tab_menu .list li.is_on .btn{
+	font-weight: bold;
+	color: green;
+}
+
+.tab_menu .list .btn{
+	font-size: 13px;
+}
+
+.tab_menu .cont_area .cont{
+	position: relative;
+	top: 25px;
+	left: 0;
+	background: grey;
+	color: white;
+	text-align: center;
+	width: 100px;
+	height: 100px;
+	list-style: 100px;
+}
