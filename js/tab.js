@@ -4,31 +4,32 @@ const tabLi = document.getElementById("tab-li");
 
 let tabs = [];
 let tmpTxTData = "";
-let flag = 0;
+
 
 const STORE_KEY = "TXT";
 
 function saveTab(tab, title){
     localStorage.setItem((!title) ? STORE_KEY : title, JSON.stringify(tab));
-    // localStorage.setItem((!title) ? STORE_KEY : title, JSON.stringify(tabs));
 }
 
 function deleteTab(event){
+    if(indicator() === 0){
+        return;
+    } 
     const div = event.target.parentElement;
     const li = document.getElementById(div.id);
     div.remove();
     li.remove();
     const firstTab = tabCon.firstElementChild.id;
     changeTab(firstTab);
-    // tabs = tabs.filter((tab) => tab.id !== parseInt(div.id));
-    // saveTab(tabs);
 }
 
 function handleTab(newTab){
     if(handleTab_li(newTab) === 0){
         return alert("이미 불러온 데이터입니다.");
     }
-    handleTab_div(newTab);   
+    handleTab_div(newTab);  
+    return 1;
 }
 
 function handleTab_li(newTab){
@@ -57,9 +58,6 @@ function handleTab_div(newTab){
     const div = document.createElement("div");
     div.id = newTab.id;
     div.className = "selected"
-    // const span = document.createElement("span");
-    // span.innerText = newTab.text;
-    // span.id = "tabSpan"
     const button = document.createElement("button");
     button.innerText= "X";
     const textarea = document.createElement("textarea");
@@ -94,7 +92,7 @@ function changePage(id){
     clickPage.className = "selected";
 }
 
-function newTab(TxTData){
+function tabInfo(TxTData){
     const value = TxTData;
     const newTab = {
         text : value,
@@ -104,8 +102,7 @@ function newTab(TxTData){
 }
 
 function clickTabBtn(TxTData){
-    const newTab1 = newTab(TxTData);
-    // tabs.push(newTab1);
+    const newTab1 = tabInfo(TxTData);
     handleTab(newTab1);
     saveTab(newTab1); 
 }
