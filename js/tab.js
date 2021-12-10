@@ -6,7 +6,7 @@ let tabs = [];
 let tmpTxTData = "";
 
 
-const STORE_KEY = "TXT";
+const STORE_KEY = "TMP";
 
 function saveTab(tab, title){
     localStorage.setItem((!title) ? STORE_KEY : title, JSON.stringify(tab));
@@ -24,17 +24,19 @@ function deleteTab(event){
     changeTab(firstTab);
 }
 
-function handleTab(newTab){
-    if(handleTab_li(newTab) === 0){
+function handleTab(newTab, title){
+    if(handleTab_li(newTab, title) === 0){
         return alert("이미 불러온 데이터입니다.");
     }
     handleTab_div(newTab);  
     return 1;
 }
 
-function handleTab_li(newTab){
+function handleTab_li(newTab, title){
     let tabLiChild = tabLi.querySelectorAll(":scope > li");
     for(let i = 0; i < tabLiChild.length; i++){
+        console.log("tabLiChild id : " + tabLiChild[i].id);
+        console.log("newTab id : " + newTab.id);
         if(tabLiChild[i].id == newTab.id){
             return 0;
         }
@@ -45,7 +47,7 @@ function handleTab_li(newTab){
     const li = document.createElement("li");
     li.className = "selected";
     li.id = newTab.id;
-    li.innerText = "OO"
+    li.innerText = (!title) ? "OO" : title;
     li.setAttribute("onclick", "changeTab(this.id)");
     tabLi.appendChild(li);
 }
@@ -63,7 +65,6 @@ function handleTab_div(newTab){
     const textarea = document.createElement("textarea");
     textarea.innerText = newTab.text;
     button.addEventListener("click", deleteTab);
-    // div.appendChild(span);
     div.appendChild(button);
     div.appendChild(textarea);
     tabCon.appendChild(div);

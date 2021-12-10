@@ -1,12 +1,11 @@
-export default class notepad{
-    
+class notepad{
     close(){};
     
     init(){
-        let tabs = [];
-
-    }
-    
-    
-    init()
+        localStorage.clear();        
+    };
 }
+
+let start = new notepad();
+
+start.init();
