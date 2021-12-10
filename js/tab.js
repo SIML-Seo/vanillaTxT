@@ -8,12 +8,12 @@ let tmpTxTData = "";
 
 const STORE_KEY = "TMP";
 
-function saveTab(tab, title){
-    localStorage.setItem((!title) ? STORE_KEY : title, JSON.stringify(tab));
+function saveTabtoStorage(tab, title){
+    localStorage.setItem((!title) ? STORE_KEY : title.trim(), JSON.stringify(tab));
 }
 
 function deleteTab(event){
-    if(indicator() === 0){
+    if(indicatorWithSaveEditToTextarea() === 0){
         return;
     } 
     const div = event.target.parentElement;
@@ -22,6 +22,7 @@ function deleteTab(event){
     li.remove();
     const firstTab = tabCon.firstElementChild.id;
     changeTab(firstTab);
+    // tabs = tabs.filter((tab) => tab.id !== parseInt(div.id));
 }
 
 function handleTab(newTab, title){
@@ -64,6 +65,7 @@ function handleTab_div(newTab){
     button.innerText= "X";
     const textarea = document.createElement("textarea");
     textarea.innerText = newTab.text;
+    textarea.addEventListener("input", indicator);
     button.addEventListener("click", deleteTab);
     div.appendChild(button);
     div.appendChild(textarea);
@@ -105,7 +107,15 @@ function tabInfo(TxTData){
 function clickTabBtn(TxTData){
     const newTab1 = tabInfo(TxTData);
     handleTab(newTab1);
-    saveTab(newTab1); 
+    saveTabtoStorage(newTab1); 
 }
+
+function indicator(){
+    if(!tabLi.querySelector(":scope > .selected").innerText.endsWith('*')){
+        tabLi.querySelector(":scope > .selected").innerText += '*';
+    }
+}
+
+
 
 tabButton.addEventListener("click", function(){clickTabBtn(tmpTxTData)});
